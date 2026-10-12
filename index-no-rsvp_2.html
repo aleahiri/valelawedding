@@ -120,6 +120,11 @@
   .dots button { width: 9px; height: 9px; padding: 0; border: 1px solid var(--gold); background: transparent; transform: rotate(45deg); cursor: pointer; transition: background .3s; }
   .dots button.on { background: var(--gold); }
 
+  /* Story text (below the slideshow) */
+  .story-text { max-width: 640px; margin: 4rem auto 0; text-align: center; }
+  .story-text p { font-family: var(--serif); font-size: 1.25rem; line-height: 1.75; color: #4a4339; margin-bottom: 1.3rem; }
+  .story-sign { font-style: italic; color: var(--gold) !important; font-size: 1.5rem !important; margin-top: 1.8rem; }
+
   /* Details */
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
   .card {
@@ -500,6 +505,7 @@
 
 <nav id="nav">
   <button class="menu-btn" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+  <a href="#photos">Our Story</a>
   <a href="#details">Details</a>
   <a href="#travel">Travel</a>
   <a href="#registry">Registry</a>
@@ -524,7 +530,7 @@
 
 <section id="photos">
   <div class="wrap">
-    <div class="title reveal"><h2>Our Moments</h2><div class="divider">✦</div></div>
+    <div class="title reveal"><h2>Our Story</h2><div class="divider">✦</div></div>
     <!--
       EDIT: put your photos next to this file named slide-1.jpg, slide-2.jpg, ...
       Add or remove <div class="slide"> lines to change how many there are.
@@ -540,6 +546,12 @@
       <button class="slide-nav next" aria-label="Next photo">›</button>
     </div>
     <div class="dots" id="dots"></div>
+
+    
+    <div class="story-text reveal">
+      <p>We spent nearly our whole lives two doors apart, but it was a simple message on social media that finally brought us together. That one message grew into a love full of laughter and adventure. As we prepare to say "I do," we can't wait to celebrate with the people we love most.</p>
+      <p class="story-sign">— Alexa &amp; Vincent</p>
+    </div>
   </div>
 </section>
 

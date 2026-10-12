@@ -1,0 +1,749 @@
+<!--
+ Date needs to be on the first page, keep the countdown, add in the story, remove the RSVP, Keep the color of the text in Alexa's website, Alexa to send the registry links
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alexa & Vincent · September 2nd, 2027</title>
+<!--
+  CLASSIC ELEGANT — ivory, gold, and serif type.
+  Edit the names, date, and details below. Search for "EDIT" to find the key spots.
+  Single file: no build step. Open with VS Code's Live Server or just double-click.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Lenis smooth scrolling (https://lenis.darkroom.engineering) -->
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+  :root {
+    --ivory: #fbf8f2;
+    --cream: #f3ece0;
+    --gold: #b08d57;
+    --gold-soft: #d8c39c;
+    --ink: #2f2a24;
+    --muted: #7a7064;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Montserrat', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--ivory); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.7; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  /* ---------- Nav ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; justify-content: center; gap: 2.2rem;
+    padding: 1.1rem 1rem; background: rgba(251,248,242,.92);
+    backdrop-filter: blur(8px); border-bottom: 1px solid rgba(176,141,87,.2);
+    font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+  }
+  nav a { text-decoration: none; color: var(--muted); transition: color .2s; }
+  nav a:hover { color: var(--gold); }
+  .menu-btn { display: none; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: 100vh; display: grid; place-items: center; text-align: center;
+    padding: 7rem 1.5rem 4rem; position: relative;
+    background:
+      radial-gradient(ellipse at top, rgba(216,195,156,.35), transparent 60%),
+      var(--ivory);
+  }
+  .hero::before, .hero::after {
+    content: ""; position: absolute; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 70px; background: var(--gold-soft);
+  }
+  .hero::before { top: 90px; }
+  .hero::after { bottom: 40px; }
+  .eyebrow { font-size: .75rem; letter-spacing: .4em; text-transform: uppercase; color: var(--gold); }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 300; font-size: clamp(3.2rem, 10vw, 7rem);
+    line-height: 1; margin: 1.6rem 0;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); padding: 0 .15em; }
+  .hero .date { font-family: var(--serif); font-size: clamp(1.6rem, 4vw, 2rem); font-weight: 600; font-style: italic; }
+  .hero .place { font-size: .8rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-top: .4rem; }
+
+  .countdown { display: flex; justify-content: center; gap: 2.4rem; margin-top: 3rem; }
+  .countdown div { min-width: 60px; }
+  .countdown span { display: block; font-family: var(--serif); font-size: 2.6rem; font-weight: 300; line-height: 1; }
+  .countdown small { font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
+
+  .btn {
+    display: inline-block; margin-top: 2.8rem; padding: .95rem 2.6rem;
+    border: 1px solid var(--gold); color: var(--gold); background: transparent;
+    font-family: var(--sans); font-size: .72rem; letter-spacing: .3em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; transition: all .25s;
+  }
+  .btn:hover { background: var(--gold); color: var(--ivory); }
+
+  /* ---------- Sections ---------- */
+  section { padding: 6.5rem 1.5rem; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  .alt { background: var(--cream); }
+  .title { text-align: center; margin-bottom: 3.5rem; }
+  .title h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1.15; }
+  .divider { display: flex; align-items: center; justify-content: center; gap: .8rem; color: var(--gold); margin-top: .8rem; }
+  .divider::before, .divider::after { content: ""; width: 50px; height: 1px; background: var(--gold-soft); }
+
+  /* Slideshow */
+  .slideshow {
+    position: relative; max-width: 900px; margin: 0 auto; aspect-ratio: 3/2;
+    outline: 1px solid var(--gold-soft); outline-offset: 14px; overflow: hidden;
+  }
+  .slide {
+    position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease;
+    background: linear-gradient(160deg, #e9dfcd, #d5c4a5) center/cover no-repeat;
+    display: grid; place-items: center; color: rgba(47,42,36,.45);
+    font-size: .7rem; letter-spacing: .3em; text-transform: uppercase;
+  }
+  .slide.has-img { color: transparent; }
+  .slide.active { opacity: 1; animation: drift 7s ease-out forwards; }
+  @keyframes drift { from { transform: scale(1.06); } to { transform: scale(1); } }
+  .slide-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(251,248,242,.8);
+    background: rgba(47,42,36,.18); color: var(--ivory); font-size: 1.4rem; cursor: pointer;
+    opacity: 0; transition: opacity .3s, background .3s;
+  }
+  .slideshow:hover .slide-nav, .slide-nav:focus-visible { opacity: 1; }
+  .slide-nav:hover { background: rgba(47,42,36,.35); }
+  .slide-nav.prev { left: 1rem; } .slide-nav.next { right: 1rem; }
+  .dots { display: flex; justify-content: center; gap: .7rem; margin-top: 2.2rem; }
+  .dots button { width: 9px; height: 9px; padding: 0; border: 1px solid var(--gold); background: transparent; transform: rotate(45deg); cursor: pointer; transition: background .3s; }
+  .dots button.on { background: var(--gold); }
+
+  /* Story text (below the slideshow) */
+  .story-text { max-width: 640px; margin: 4rem auto 0; text-align: center; }
+  .story-text p { font-family: var(--serif); font-size: 1.25rem; line-height: 1.75; color: #4a4339; margin-bottom: 1.3rem; }
+  .story-sign { font-style: italic; color: var(--gold) !important; font-size: 1.5rem !important; margin-top: 1.8rem; }
+
+  /* Details */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+  .card {
+    background: var(--ivory); padding: 3rem 2rem; text-align: center;
+    border: 1px solid rgba(176,141,87,.25); position: relative;
+  }
+  .card::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(176,141,87,.15); pointer-events: none; }
+  .card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; margin-bottom: .6rem; }
+  .card .time { font-size: .75rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .card p { color: var(--muted); }
+  .card a { display: inline-block; margin-top: 1.2rem; font-size: .7rem; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); }
+
+  /* Travel */
+  .travel { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 3rem; }
+  .travel h4 { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; margin-bottom: .6rem; }
+  .travel p { color: var(--muted); font-size: .95rem; }
+  .travel-note { text-align: center; color: var(--muted); max-width: 620px; margin: -1.6rem auto 3rem; }
+  .stay-feature { position: relative; max-width: 560px; margin: 0 auto; padding: 3rem 2rem 2.6rem; text-align: center; background: #fffdf9; border: 1px solid rgba(176,141,87,.3); }
+  .stay-feature::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(176,141,87,.15); pointer-events: none; }
+  .stay-label { font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: .9rem; }
+  .stay-feature h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.2rem); line-height: 1.15; }
+  .stay-sub { font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--muted); margin-top: .2rem; }
+  .stay-rule { display: block; width: 44px; height: 1px; background: var(--gold); margin: 1.4rem auto; }
+  .stay-addr { color: var(--muted); font-size: .95rem; }
+  .stay-note { font-family: var(--serif); font-size: 1.2rem; margin-top: 1.1rem; }
+  .stay-note em { color: var(--gold); }
+  .stay-more { text-align: center; color: var(--muted); max-width: 560px; margin: 2.2rem auto 0; font-size: .95rem; }
+  .shuttle-head { text-align: center; margin: 4rem 0 2rem; }
+  .shuttle-head h3 { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; }
+  .shuttle-head p { color: var(--muted); font-size: .95rem; margin-top: .3rem; }
+  .shuttles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; max-width: 760px; margin: 0 auto; }
+  @media (max-width: 600px) { .shuttles { grid-template-columns: 1fr; } }
+  .shuttle { text-align: center; padding: 1.8rem 1.4rem; border: 1px solid rgba(176,141,87,.25); position: relative; }
+  .shuttle::after { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(176,141,87,.12); pointer-events: none; }
+  .shuttle h4 { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; margin-bottom: .4rem; }
+  .shuttle p { color: var(--muted); font-size: .9rem; }
+  .travel .code { display: inline-block; margin-top: .8rem; padding: .3rem .8rem; border: 1px dashed var(--gold); font-size: .75rem; letter-spacing: .1em; }
+
+  /* Registry */
+  .registry { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+  .registry a { padding: 1.4rem 2.4rem; border: 1px solid var(--gold-soft); text-decoration: none; font-family: var(--serif); font-size: 1.3rem; transition: all .25s; }
+  .registry a:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* RSVP */
+  form { max-width: 560px; margin: 0 auto; display: grid; gap: 1.4rem; }
+  label { font-size: .7rem; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: .4rem; }
+  input, select, textarea {
+    width: 100%; padding: .85rem 0; border: none; border-bottom: 1px solid var(--gold-soft);
+    background: transparent; font-family: var(--serif); font-size: 1.2rem; color: var(--ink); outline: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+  .radio-row { display: flex; gap: 2rem; }
+  .radio-row label { text-transform: none; letter-spacing: 0; font-family: var(--serif); font-size: 1.15rem; color: var(--ink); display: flex; align-items: center; gap: .5rem; cursor: pointer; }
+  .radio-row input { width: auto; accent-color: var(--gold); }
+  form .btn { justify-self: center; margin-top: 1rem; }
+  .thanks { display: none; text-align: center; font-family: var(--serif); font-size: 1.6rem; font-style: italic; color: var(--gold); }
+
+  /* FAQ */
+  details { border-bottom: 1px solid rgba(176,141,87,.3); padding: 1.3rem 0; max-width: 720px; margin: 0 auto; }
+  summary { cursor: pointer; font-family: var(--serif); font-size: 1.35rem; list-style: none; display: flex; justify-content: space-between; }
+  summary::after { content: "+"; color: var(--gold); }
+  details[open] summary::after { content: "−"; }
+  details p { color: var(--muted); margin-top: .8rem; }
+
+  footer { text-align: center; padding: 4rem 1rem; background: var(--ink); color: var(--gold-soft); }
+  footer .mono { font-family: var(--serif); font-size: 2.6rem; font-style: italic; }
+  footer small { display: block; margin-top: .6rem; font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: #8d8273; }
+
+  /* ---------- Opening animation: hand-drawn iron gates ---------- */
+  html.intro-on, html.intro-on body { overflow: hidden; }
+  #gateIntro {
+    position: fixed; inset: 0; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
+    background: radial-gradient(ellipse at center, #fdfaf4 0%, var(--ivory) 55%, #f1e8d9 100%);
+    transition: opacity .9s ease;
+  }
+  #gateIntro.fade { opacity: 0; pointer-events: none; }
+  .gate-stage { position: relative; width: min(84vw, 62vh); aspect-ratio: 1; perspective: 1600px; transition: transform 2.4s cubic-bezier(.5,0,.2,1); }
+  #gateIntro.open .gate-stage { transform: scale(1.22); opacity: 0; transition: transform 2.4s cubic-bezier(.5,0,.2,1), opacity 1.4s ease .8s; }
+  #gateIntro.open .gate-names { opacity: 0; transition: opacity .8s ease; }
+  .gate-stage svg { position: absolute; overflow: visible; }
+  .gate-frame { inset: 0; width: 100%; height: 100%; }
+  .ink { fill: none; stroke: var(--ink); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; filter: url(#inky); }
+  .door { position: absolute; top: 10.526%; height: 86.842%; width: 28.947%; transition: transform 2s cubic-bezier(.6,0,.25,1); }
+  .door svg { inset: 0; width: 100%; height: 100%; }
+  .door.l { left: 21.053%; transform-origin: left center; }
+  .door.r { left: 50%; transform-origin: right center; }
+  .door.r svg { transform: scaleX(-1); }
+  #gateIntro.open .door.l { transform: rotateY(-108deg); }
+  #gateIntro.open .door.r { transform: rotateY(108deg); }
+  .spark-arc { fill: none; stroke: var(--gold); stroke-width: 1.4; stroke-linecap: round; opacity: .85; transition: opacity 1.2s; }
+  .spark-arc.gone { opacity: 0; }
+  .spark { fill: #e3c98f; }
+  .gate-names {
+    font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 7vw, 4.4rem); line-height: 1.1; color: var(--ink); text-align: center;
+    clip-path: inset(0 100% 0 0); filter: blur(3px); opacity: 0;
+    transition: clip-path 2s cubic-bezier(.5,0,.2,1), filter 1.6s ease, opacity .6s ease;
+  }
+  .gate-names em { font-style: italic; color: var(--gold); padding: 0 .15em; }
+  .gate-names.in { clip-path: inset(0 -5% 0 0); filter: none; opacity: 1; }
+  .gate-skip { position: absolute; right: 1.4rem; bottom: 1.2rem; background: none; border: 0; font-family: var(--sans); font-size: .66rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); cursor: pointer; }
+
+  /* Fade-in */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+
+  @media (max-width: 760px) {
+    nav { justify-content: flex-end; }
+    nav a { display: none; }
+    nav.open { flex-direction: column; align-items: center; gap: 1.2rem; padding-bottom: 1.6rem; }
+    nav.open a { display: block; }
+    .menu-btn { display: block; background: none; border: none; font-size: 1.4rem; color: var(--gold); cursor: pointer; }
+    nav.open .menu-btn { align-self: flex-end; }
+    .slide-nav { opacity: 1; width: 38px; height: 38px; }
+    .countdown { gap: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ OPENING ANIMATION: hand-drawn iron gates (plays before anything else) ============ -->
+<div id="gateIntro" aria-hidden="true">
+  <div class="gate-stage" id="gateStage">
+    <svg class="gate-frame" viewBox="-80 0 760 760" aria-hidden="true">
+      <defs>
+        <!-- slight wobble so the lines look inked by hand -->
+        <filter id="inky" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="2" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/>
+        </filter>
+        <filter id="glow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="3"/></filter>
+      </defs>
+      <g class="ink">
+        <path data-step="1" d="M-80 742 C 100 737, 300 747, 460 740 S 640 738, 680 742"/>
+        <path data-step="1" d="M-80 752 C 120 748, 420 756, 680 751" opacity=".5"/>
+        <path data-step="1" d="M-36 742 C -58 667, -54 554, -36 492 C -18 554, -14 667, -36 742"/>
+        <path data-step="1" d="M-48 694 q 9 -10 12 -22" opacity=".6"/>
+        <path data-step="1" d="M-25 706 q -8 -10 -11 -25" opacity=".6"/>
+        <path data-step="1" d="M-48 646 q 9 -10 12 -22" opacity=".6"/>
+        <path data-step="1" d="M-25 658 q -8 -10 -11 -25" opacity=".6"/>
+        <path data-step="1" d="M-48 598 q 9 -10 12 -22" opacity=".6"/>
+        <path data-step="1" d="M-25 610 q -8 -10 -11 -25" opacity=".6"/>
+        <path data-step="1" d="M-48 550 q 9 -10 12 -22" opacity=".6"/>
+        <path data-step="1" d="M-25 562 q -8 -10 -11 -25" opacity=".6"/>
+        <path data-step="1" d="M-36 742 V748"/>
+        <path data-step="1" d="M-62 742 C -76 697, -73 630, -62 592 C -51 630, -48 697, -62 742"/>
+        <path data-step="1" d="M-70 713 q 6 -6 8 -14" opacity=".6"/>
+        <path data-step="1" d="M-55 721 q -5 -6 -7 -15" opacity=".6"/>
+        <path data-step="1" d="M-70 684 q 6 -6 8 -14" opacity=".6"/>
+        <path data-step="1" d="M-55 692 q -5 -6 -7 -15" opacity=".6"/>
+        <path data-step="1" d="M-70 656 q 6 -6 8 -14" opacity=".6"/>
+        <path data-step="1" d="M-55 663 q -5 -6 -7 -15" opacity=".6"/>
+        <path data-step="1" d="M-70 627 q 6 -6 8 -14" opacity=".6"/>
+        <path data-step="1" d="M-55 634 q -5 -6 -7 -15" opacity=".6"/>
+        <path data-step="1" d="M-62 742 V748"/>
+        <path data-step="1" d="M636 742 C 614 667, 618 554, 636 492 C 654 554, 658 667, 636 742"/>
+        <path data-step="1" d="M624 694 q 9 -10 12 -22" opacity=".6"/>
+        <path data-step="1" d="M647 706 q -8 -10 -11 -25" opacity=".6"/>
+        <path data-step="1" d="M624 646 q 9 -10 12 -22" opacity=".6"/>
+        <path data-step="1" d="M647 658 q -8 -10 -11 -25" opacity=".6"/>
+        <path data-step="1" d="M624 598 q 9 -10 12 -22" opacity=".6"/>
+        <path data-step="1" d="M647 610 q -8 -10 -11 -25" opacity=".6"/>
+        <path data-step="1" d="M624 550 q 9 -10 12 -22" opacity=".6"/>
+        <path data-step="1" d="M647 562 q -8 -10 -11 -25" opacity=".6"/>
+        <path data-step="1" d="M636 742 V748"/>
+        <path data-step="1" d="M662 742 C 648 697, 651 630, 662 592 C 673 630, 676 697, 662 742"/>
+        <path data-step="1" d="M654 713 q 6 -6 8 -14" opacity=".6"/>
+        <path data-step="1" d="M669 721 q -5 -6 -7 -15" opacity=".6"/>
+        <path data-step="1" d="M654 684 q 6 -6 8 -14" opacity=".6"/>
+        <path data-step="1" d="M669 692 q -5 -6 -7 -15" opacity=".6"/>
+        <path data-step="1" d="M654 656 q 6 -6 8 -14" opacity=".6"/>
+        <path data-step="1" d="M669 663 q -5 -6 -7 -15" opacity=".6"/>
+        <path data-step="1" d="M654 627 q 6 -6 8 -14" opacity=".6"/>
+        <path data-step="1" d="M669 634 q -5 -6 -7 -15" opacity=".6"/>
+        <path data-step="1" d="M662 742 V748"/>
+        <path data-step="2" d="M44 742 V300 M80 300 V742"/>
+        <path data-step="2" d="M56 742 V320 M68 320 V742" opacity=".45"/>
+        <path data-step="2" d="M36 742 H88 M38 730 H86"/>
+        <path data-step="2" d="M34 300 H90 M38 290 H86 M40 290 V300 M84 290 V300"/>
+        <circle data-step="6" cx="62" cy="270" r="12"/>
+        <path data-step="6" d="M50 290 Q 62 280 74 290"/>
+        <path data-step="6" d="M62 258 V232 M56 242 L62 228 L68 242"/>
+        <path data-step="2" d="M556 742 V300 M520 300 V742"/>
+        <path data-step="2" d="M544 742 V320 M532 320 V742" opacity=".45"/>
+        <path data-step="2" d="M564 742 H512 M562 730 H514"/>
+        <path data-step="2" d="M566 300 H510 M562 290 H514 M560 290 V300 M516 290 V300"/>
+        <circle data-step="6" cx="538" cy="270" r="12"/>
+        <path data-step="6" d="M550 290 Q 538 280 526 290"/>
+        <path data-step="6" d="M538 258 V232 M544 242 L538 228 L532 242"/>
+        <path data-step="2" d="M44 300 A256 256 0 0 1 556 300"/>
+        <path data-step="2" d="M72 300 A228 228 0 0 1 528 300"/>
+        <path data-step="2" d="M520 241 L547 234" opacity=".7"/>
+        <path data-step="2" d="M498 186 L522 172" opacity=".7"/>
+        <path data-step="2" d="M461 139 L481 119" opacity=".7"/>
+        <path data-step="2" d="M414 102 L428 78" opacity=".7"/>
+        <path data-step="2" d="M359 80 L366 53" opacity=".7"/>
+        <path data-step="2" d="M241 80 L234 53" opacity=".7"/>
+        <path data-step="2" d="M186 102 L172 78" opacity=".7"/>
+        <path data-step="2" d="M139 139 L119 119" opacity=".7"/>
+        <path data-step="2" d="M102 186 L78 172" opacity=".7"/>
+        <path data-step="2" d="M80 241 L53 234" opacity=".7"/>
+        <path data-step="2" d="M287 44 L291 72 H309 L313 44 Z"/>
+        <path data-step="6" d="M33 281 L32 276 L31 270 L30 264 L30 259 L30 253 L31 248 L32 242 L34 237 L36 232 L39 227 L42 222 L45 217 L48 212 L52 208 L55 203 L58 199 L60 194 L62 189 L65 184 L66 179 L68 174 L70 169 L71 163 L73 158 L74 152 L76 147 L78 142 L81 137 L84 132 L87 128 L91 123 L95 120 L99 116 L104 113 L109 110 L114 107 L119 105 L124 102 L129 99 L133 97 L138 94 L142 91 L146 87 L150 84 L154 80 L158 76 L162 72 L166 68 L170 64 L174 60 L178 56 L183 53 L188 50 L193 48 L198 46 L204 44 L209 43 L215 43 L220 42 L226 42"/>
+        <path data-step="6" d="M43 223 c 12 -14, 26 -6, 24 8 c -7 4, -17 4, -24 -8"/>
+        <path data-step="6" d="M76 152 c -12 -14, -26 -6, -24 8 c 7 4, 17 4, 24 -8"/>
+        <path data-step="6" d="M128 94 c 12 -14, 26 -6, 24 8 c -7 4, -17 4, -24 -8"/>
+        <path data-step="6" d="M195 53 c -12 -14, -26 -6, -24 8 c 7 4, 17 4, 24 -8"/>
+        <path data-step="6" d="M112 126 C 114 132, 117 136, 118 140"/>
+        <circle data-step="6" cx="111" cy="148" r="4.5"/>
+        <circle data-step="6" cx="118" cy="148" r="4.5"/>
+        <circle data-step="6" cx="125" cy="148" r="4.5"/>
+        <circle data-step="6" cx="114.5" cy="156" r="4.5"/>
+        <circle data-step="6" cx="121.5" cy="156" r="4.5"/>
+        <circle data-step="6" cx="118" cy="164" r="4.5"/>
+        <circle data-step="6" cx="111" cy="157" r="4.5"/>
+        <circle data-step="6" cx="125" cy="157" r="4.5"/>
+        <path data-step="6" d="M567 281 L568 276 L569 270 L570 264 L570 259 L570 253 L569 248 L568 242 L566 237 L564 232 L561 227 L558 222 L555 217 L552 212 L548 208 L545 203 L542 199 L540 194 L538 189 L535 184 L534 179 L532 174 L530 169 L529 163 L527 158 L526 152 L524 147 L522 142 L519 137 L516 132 L513 128 L509 123 L505 120 L501 116 L496 113 L491 110 L486 107 L481 105 L476 102 L471 99 L467 97 L462 94 L458 91 L454 87 L450 84 L446 80 L442 76 L438 72 L434 68 L430 64 L426 60 L422 56 L417 53 L412 50 L407 48 L402 46 L396 44 L391 43 L385 43 L380 42 L374 42"/>
+        <path data-step="6" d="M557 223 c -12 -14, -26 -6, -24 8 c 7 4, 17 4, 24 -8"/>
+        <path data-step="6" d="M524 152 c 12 -14, 26 -6, 24 8 c -7 4, -17 4, -24 -8"/>
+        <path data-step="6" d="M472 94 c -12 -14, -26 -6, -24 8 c 7 4, 17 4, 24 -8"/>
+        <path data-step="6" d="M405 53 c 12 -14, 26 -6, 24 8 c -7 4, -17 4, -24 -8"/>
+        <path data-step="6" d="M488 126 C 486 132, 483 136, 482 140"/>
+        <circle data-step="6" cx="489" cy="148" r="4.5"/>
+        <circle data-step="6" cx="482" cy="148" r="4.5"/>
+        <circle data-step="6" cx="475" cy="148" r="4.5"/>
+        <circle data-step="6" cx="485.5" cy="156" r="4.5"/>
+        <circle data-step="6" cx="478.5" cy="156" r="4.5"/>
+        <circle data-step="6" cx="482" cy="164" r="4.5"/>
+        <circle data-step="6" cx="489" cy="157" r="4.5"/>
+        <circle data-step="6" cx="475" cy="157" r="4.5"/>
+      </g>
+        <path class="spark-arc" id="sparkArc" d="M14 742 V300 A286 286 0 0 1 586 300 V742"/>
+      <g id="sparks"></g>
+      <circle id="sparkHead" r="5" fill="#f3dfae" filter="url(#glow)" opacity="0"/>
+    </svg>
+    <div class="door l"><svg viewBox="80 80 220 660" preserveAspectRatio="none"><g class="ink">
+      <path data-step="3" d="M80 740 V300 A220 220 0 0 1 300 80 V740 Z"/>
+      <path data-step="3" d="M92 728 V300 A208 208 0 0 1 290 92 V728 Z"/>
+      <path data-step="3" d="M92 300 H290"/>
+      <path data-step="3" d="M92 430 H290"/>
+      <path data-step="3" d="M92 610 H290"/>
+      <path data-step="3" d="M92 680 H290"/>
+      <path data-step="4" d="M114 300 V728"/>
+      <path data-step="4" d="M136 300 V728"/>
+      <path data-step="4" d="M158 300 V728"/>
+      <path data-step="4" d="M180 300 V728"/>
+      <path data-step="4" d="M202 300 V728"/>
+      <path data-step="4" d="M224 300 V728"/>
+      <path data-step="4" d="M246 300 V728"/>
+      <path data-step="4" d="M268 300 V728"/>
+      <circle data-step="5" cx="125" cy="645" r="10"/>
+      <circle data-step="5" cx="169" cy="645" r="10"/>
+      <circle data-step="5" cx="213" cy="645" r="10"/>
+      <circle data-step="5" cx="257" cy="645" r="10"/>
+      <path data-step="5" d="M266 300 A34 34 0 0 1 300 266"/>
+      <path data-step="5" d="M180 300 A120 120 0 0 1 300 180"/>
+      <path data-step="5" d="M291 267 L247 101"/>
+      <path data-step="5" d="M283 271 L197 122"/>
+      <path data-step="5" d="M276 276 L154 154"/>
+      <path data-step="5" d="M271 283 L122 197"/>
+      <path data-step="5" d="M267 291 L101 247"/>
+      <circle data-step="5" cx="278.7" cy="138.4" r="8"/>
+      <circle data-step="5" cx="237.6" cy="149.4" r="8"/>
+      <circle data-step="5" cx="200.8" cy="170.7" r="8"/>
+      <circle data-step="5" cx="170.7" cy="200.8" r="8"/>
+      <circle data-step="5" cx="149.4" cy="237.6" r="8"/>
+      <circle data-step="5" cx="138.4" cy="278.7" r="8"/>
+      <circle data-step="5" cx="270.5" cy="228.9" r="5"/>
+      <circle data-step="5" cx="238.9" cy="253.1" r="5"/>
+      <circle data-step="5" cx="223.7" cy="289.9" r="5"/>
+      <path data-step="5" d="M104 604 C 104 560, 126 520, 168 500 C 200 485, 226 470, 226 448"/>
+      <path data-step="5" d="M226 452 L226 449 L225 446 L224 444 L222 442 L220 440 L218 438 L216 436 L213 436 L211 435 L208 435 L206 435 L203 435 L201 436 L199 437 L197 438 L195 440 L194 442 L193 444 L192 446 L191 448 L191 450 L191 452 L192 454 L192 456 L194 458 L195 460 L196 461 L198 462 L199 463 L201 464 L203 464 L205 464 L206 464 L208 464 L210 463 L211 462 L212 461 L213 460 L214 459 L215 457 L215 456 L216 454 L216 453 L215 452 L215 450 L214 449 L214 448 L213 447 L212 446 L211 446 L210 445 L209 445 L208 445 L207 445 L206 445 L205 446 L204 446 L203 447 L202 448 L202 449 L202 450 L202 451 L202 452 L202 453 L203 453 L203 454 L204 454"/>
+      <path data-step="5" d="M104 604 C 120 598, 132 586, 132 572"/>
+      <path data-step="5" d="M132 572 L132 570 L131 569 L131 568 L130 566 L129 565 L128 564 L127 564 L126 563 L125 562 L123 562 L122 562 L121 562 L119 562 L118 562 L117 563 L116 563 L115 564 L114 565 L113 566 L113 567 L112 568 L112 569 L112 570 L112 571 L112 572 L112 573 L112 574 L113 575 L113 576 L114 576 L114 577 L115 578 L116 578 L117 578 L118 579 L119 579 L120 579 L121 578 L122 578 L123 578 L123 577 L124 576 L124 575 L125 575 L125 574 L125 573 L125 572 L125 571 L124 571 L124 570 L123 570 L123 569 L122 569 L121 569 L120 569 L119 569 L119 570 L118 570 L118 571"/>
+      <path data-step="5" d="M284 600 C 250 596, 236 570, 248 546"/>
+      <path data-step="5" d="M248 548 L248 546 L249 544 L250 543 L251 541 L252 540 L253 539 L254 538 L256 537 L258 536 L259 536 L261 536 L262 536 L264 536 L266 537 L267 538 L268 539 L269 540 L270 541 L271 542 L272 543 L272 545 L272 546 L272 548 L272 549 L272 550 L271 551 L270 552 L269 553 L268 554 L268 555 L266 556 L265 556 L264 556 L263 556 L262 556 L261 556 L260 555 L259 555 L258 554 L257 553 L256 552 L256 551 L256 550 L256 549 L256 548 L256 547 L257 546 L258 545 L259 544 L260 544 L261 544 L262 544 L263 544 L263 545 L264 545 L264 546 L264 547 L264 548"/>
+      <path data-step="5" d="M300 474 A46 46 0 0 0 300 566"/>
+      <path data-step="5" d="M300 484 A36 36 0 0 0 300 556"/>
+      <circle data-step="6" cx="292" cy="500" r="5.5"/>
+      <circle data-step="6" cx="282" cy="512" r="5.5"/>
+      <circle data-step="6" cx="294" cy="514" r="5.5"/>
+      <circle data-step="6" cx="286" cy="526" r="5.5"/>
+      <circle data-step="6" cx="296" cy="528" r="5.5"/>
+      <circle data-step="6" cx="290" cy="540" r="5.5"/>
+      <circle data-step="6" cx="296" cy="551" r="5.5"/>
+      <path data-step="6" d="M297 494 C 292 486, 286 482, 278 482"/>
+      <path data-step="6" d="M300 80 V56 M292 66 L300 50"/>
+      <path data-step="6" d="M300 50 C 290 44, 284 36, 288 28"/>
+    </g></svg></div>
+    <div class="door r"><svg viewBox="80 80 220 660" preserveAspectRatio="none"></svg></div>
+  </div>
+  <p class="gate-names" id="gateNames">Alexa<em>&amp;</em>Vincent</p>  <!-- EDIT: names in the opening animation -->
+  <button class="gate-skip" id="gateSkip">Skip</button>
+</div>
+<script>
+/* Opening animation — draws the gates line by line, sweeps a gold arc over them,
+   writes the names, then swings the gates open onto the site. */
+(function () {
+  const intro = document.getElementById('gateIntro');
+  if (!intro) return;
+  document.documentElement.classList.add('intro-on');
+  const SPEED = 1;            // EDIT: 1 = normal, 0.7 = faster, 1.3 = slower
+  const ms = t => t * SPEED;
+  // copy the left gate into the right one (it's mirrored with CSS)
+  intro.querySelector('.door.r svg').innerHTML = intro.querySelector('.door.l svg').innerHTML;
+
+  // when each group of lines is drawn: [start, duration] in ms
+  const PHASES = { 1: [0, 1500], 2: [700, 1700], 3: [1900, 1300], 4: [2500, 1300], 5: [3100, 2100], 6: [4300, 1600] };
+  const ARC_AT = 5700, NAMES_AT = 6500, OPEN_AT = 8900, FADE_AT = 10500, DONE_AT = 11500;
+  const timers = [], anims = [];
+  const later = (fn, t) => timers.push(setTimeout(fn, ms(t)));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // draw every line: each <svg> is handled separately so both gates draw in sync
+  intro.querySelectorAll('svg').forEach(svg => {
+    const byStep = {};
+    svg.querySelectorAll('[data-step]').forEach(el => (byStep[el.dataset.step] ||= []).push(el));
+    for (const step in byStep) {
+      const [start, dur] = PHASES[step], list = byStep[step];
+      list.forEach((el, i) => {
+        const len = el.getTotalLength();
+        el.style.strokeDasharray = len;
+        el.style.strokeDashoffset = reduce ? 0 : len;
+        if (reduce) return;
+        const d = Math.max(350, Math.min(dur * .7, len * 3));
+        anims.push(el.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }],
+          { duration: ms(d), delay: ms(start + (i / list.length) * dur * .55), easing: 'ease-in-out', fill: 'forwards' }));
+      });
+    }
+  });
+
+  // gold arc with a glowing nib and falling sparkles
+  const arc = document.getElementById('sparkArc'), head = document.getElementById('sparkHead'), sparks = document.getElementById('sparks');
+  const arcLen = arc.getTotalLength();
+  arc.style.strokeDasharray = arcLen; arc.style.strokeDashoffset = arcLen;
+  function sweep() {
+    const dur = ms(1700), t0 = performance.now();
+    head.setAttribute('opacity', 1);
+    (function step(now) {
+      const p = Math.min(1, (now - t0) / dur), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      const pt = arc.getPointAtLength(e * arcLen);
+      arc.style.strokeDashoffset = arcLen * (1 - e);
+      head.setAttribute('cx', pt.x); head.setAttribute('cy', pt.y);
+      if (Math.random() < .7) {
+        const s = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        s.setAttribute('class', 'spark'); s.setAttribute('cx', pt.x + (Math.random() - .5) * 10); s.setAttribute('cy', pt.y);
+        s.setAttribute('r', 1 + Math.random() * 2.2); sparks.appendChild(s);
+        s.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: `translateY(${20 + Math.random() * 30}px)` }],
+          { duration: 900 + Math.random() * 600, easing: 'ease-out', fill: 'forwards' }).onfinish = () => s.remove();
+      }
+      if (p < 1) requestAnimationFrame(step);
+      else { head.setAttribute('opacity', 0); setTimeout(() => arc.classList.add('gone'), 400); }
+    })(t0);
+  }
+
+  const names = document.getElementById('gateNames');
+  function open() { intro.classList.add('open'); }
+  function fade() { intro.classList.add('fade'); document.documentElement.classList.remove('intro-on'); window.lenis && window.lenis.start(); }
+  function done() { intro.remove(); }
+
+  if (reduce) { names.classList.add('in'); later(fade, 1800); later(done, 3200); }
+  else {
+    later(sweep, ARC_AT);
+    later(() => names.classList.add('in'), NAMES_AT);
+    later(open, OPEN_AT);
+    later(fade, FADE_AT);
+    later(done, DONE_AT);
+  }
+
+  document.getElementById('gateSkip').addEventListener('click', () => {
+    timers.forEach(clearTimeout); anims.forEach(a => a.finish());
+    names.classList.add('in'); open();
+    setTimeout(fade, 1200); setTimeout(done, 2200);
+  });
+})();
+</script>
+
+
+<nav id="nav">
+  <button class="menu-btn" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+  <a href="#photos">Our Story</a>
+  <a href="#details">Details</a>
+  <a href="#travel">Travel</a>
+  <a href="#registry">Registry</a>
+  <a href="#faq">FAQ</a>
+</nav>
+
+<!-- EDIT: names, date, location -->
+<header class="hero">
+  <div>
+    <p class="eyebrow">Together with their families</p>
+    <h1>Alexa<em>&amp;</em>Vincent</h1>
+    <p class="date">2nd September, 2027</p>
+    <p class="place">Giorgio's Baiting Hollow · Long Island, New York</p>
+    <div class="countdown" id="countdown">
+      <div><span id="d">0</span><small>Days</small></div>
+      <div><span id="h">0</span><small>Hours</small></div>
+      <div><span id="m">0</span><small>Minutes</small></div>
+      <div><span id="s">0</span><small>Seconds</small></div>
+    </div>
+  </div>
+</header>
+
+<section id="photos">
+  <div class="wrap">
+    <div class="title reveal"><h2>Our Story</h2><div class="divider">✦</div></div>
+    <!--
+      EDIT: put your photos next to this file named slide-1.jpg, slide-2.jpg, ...
+      Add or remove <div class="slide"> lines to change how many there are.
+      Change SLIDE_SECONDS in the <script> to speed it up or slow it down.
+    -->
+    <div class="slideshow reveal" id="slideshow" aria-label="Photo slideshow">
+      <div class="slide active" data-src="slide-1.png">Photo 1</div>
+      <div class="slide" data-src="slide-4.png">Photo 2</div>
+      <div class="slide" data-src="slide-3.png">Photo 3</div>
+      <div class="slide" data-src="slide-2.png">Photo 4</div>
+      <div class="slide" data-src="slide-5.png">Photo 5</div>
+      <button class="slide-nav prev" aria-label="Previous photo">‹</button>
+      <button class="slide-nav next" aria-label="Next photo">›</button>
+    </div>
+    <div class="dots" id="dots"></div>
+
+    
+    <div class="story-text reveal">
+      <p>We spent nearly our whole lives two doors apart, but it was a simple message on social media that finally brought us together. That one message grew into a love full of laughter and adventure. As we prepare to say "I do," we can't wait to celebrate with the people we love most.</p>
+      <p class="story-sign">— Alexa &amp; Vincent</p>
+    </div>
+  </div>
+</section>
+
+<section id="details" class="alt">
+  <div class="wrap">
+    <div class="title reveal"><h2>The Celebration</h2><div class="divider">✦</div></div>
+    <div class="cards">
+      <div class="card reveal">
+        <p class="time">5:00 in the evening</p>
+        <h3>Ceremony</h3>
+        <p>Giorgio's Baiting Hollow<br>100 Fox Hill Drive<br>Baiting Hollow, NY 11933</p>
+        <a href="https://maps.google.com/?q=Giorgio's+Baiting+Hollow" target="_blank" rel="noopener">View Map</a>
+      </div>
+      <div class="card reveal">
+        <p class="time">Dress Code</p>
+        <h3>Formal Attire</h3>
+        <p>We kindly invite our guests to dress in formal attire. Suits and elegant dresses are encouraged.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="travel">
+  <div class="wrap">
+    <div class="title reveal"><h2>Travel &amp; Accommodations</h2><div class="divider">✦</div></div>
+    <!-- EDIT: hotel block -->
+    <div class="stay-feature reveal">
+      <p class="stay-label">Hotel Block</p>
+      <h3>Residence Inn by Marriott</h3>
+      <p class="stay-sub">Long Island, East End</p>
+      <span class="stay-rule"></span>
+      <p class="stay-addr">2012 Old Country Rd.<br>Riverhead, NY 11901</p>
+      <p class="stay-note">A block of rooms is reserved under <em>"Alexa &amp; Vincent"</em></p>
+    </div>
+    <p class="stay-more reveal">There are also plenty of other hotels and Airbnbs nearby in Riverhead and across Long Island's North Fork.</p>
+
+    <div class="shuttle-head reveal">
+      <h3>Complimentary Shuttles</h3>
+      <p>Shuttles will run to and from the venue from the following hotels:</p>
+    </div>
+    <div class="shuttles">
+      <div class="shuttle reveal">
+        <h4>Residence Inn by Marriott<br>Long Island, East End</h4>
+        <p>2012 Old Country Rd.<br>Riverhead, NY 11901</p>
+      </div>
+      <div class="shuttle reveal">
+        <h4>Hotel Indigo<br>Long Island East End</h4>
+        <p>1830 West Main St., Route 25<br>Riverhead, NY 11901</p>
+      </div>
+      <div class="shuttle reveal">
+        <h4>Holiday Inn Express &amp; Suites<br>Long Island East End</h4>
+        <p>1707 Old Country Rd.<br>Riverhead, NY 11901</p>
+      </div>
+      <div class="shuttle reveal">
+        <h4>Hilton Garden Inn<br>Riverhead</h4>
+        <p>2038 Old Country Rd.<br>Riverhead, NY 11901</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="registry" class="alt">
+  <div class="wrap">
+    <div class="title reveal"><h2>Registry</h2><div class="divider">✦</div></div>
+    <p class="reveal" style="text-align:center;color:var(--muted);max-width:560px;margin:0 auto 2.4rem;">Your presence is the greatest gift. For those who wish, we're registered at:</p>
+    <div class="registry reveal">
+      <!-- EDIT: replace each # with your registry link, and the words with the registry's name -->
+      <a href="#" target="_blank" rel="noopener">Honeymoon Fund</a>
+      <a href="#" target="_blank" rel="noopener">Registry Two</a>
+      <a href="#" target="_blank" rel="noopener">Registry Three</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="title reveal"><h2>Questions</h2><div class="divider">✦</div></div>
+    <details class="reveal"><summary>Are the ceremony and reception at the same location?</summary><p>Yes! Our ceremony, cocktail hour, and reception will all take place at the same location for your convenience.</p></details>
+    <details class="reveal"><summary>Is parking available?</summary><p>Yes! Valet parking will be available at the venue. Complimentary shuttles will also be provided to and from the hotels listed on our Travel &amp; Accommodations page.</p></details>
+    <details class="reveal"><summary>Are children invited?</summary><p>We love your little ones, but our wedding will be an adults-only celebration. We appreciate your understanding.</p></details>
+    <details class="reveal"><summary>Can I bring a plus-one?</summary><p>We kindly ask that you refer to your invitation for the names of the guests invited to celebrate with us.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="mono">A &amp; V</div>
+  <small>09 · 02 · 2027</small>
+</footer>
+
+<script>
+  // EDIT: wedding date & time (local time)
+  const WEDDING = new Date('2027-09-02T17:00:00');
+
+  function tick() {
+    const diff = Math.max(0, WEDDING - new Date());
+    const d = Math.floor(diff / 864e5);
+    const h = Math.floor(diff / 36e5) % 24;
+    const m = Math.floor(diff / 6e4) % 60;
+    const s = Math.floor(diff / 1e3) % 60;
+    document.getElementById('d').textContent = d;
+    document.getElementById('h').textContent = h;
+    document.getElementById('m').textContent = m;
+    document.getElementById('s').textContent = s;
+  }
+  tick(); setInterval(tick, 1000);
+
+  function handleRSVP(e) {
+    e.preventDefault();
+    e.target.style.display = 'none';
+    document.getElementById('thanks').style.display = 'block';
+    return false;
+  }
+
+  // Lenis smooth scrolling — Webflow-style setup
+  // Optional attributes you can put on any button/link:
+  //   data-lenis-start  → resume smooth scrolling
+  //   data-lenis-stop   → pause scrolling (e.g. while a popup is open)
+  //   data-lenis-toggle → switch between the two
+  //   data-lenis-prevent on a scrollable box → let it scroll normally
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+      lerp: 0.1,              // EDIT: lower = smoother / floatier (0.05–0.15)
+      wheelMultiplier: 0.9,
+      gestureOrientation: 'vertical',
+      smoothWheel: true
+    });
+    window.lenis = lenis;
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    if (document.getElementById('gateIntro')) lenis.stop();   // wait for the gates to open
+
+    document.querySelectorAll('[data-lenis-start]').forEach(el => el.addEventListener('click', () => lenis.start()));
+    document.querySelectorAll('[data-lenis-stop]').forEach(el => el.addEventListener('click', () => lenis.stop()));
+    document.querySelectorAll('[data-lenis-toggle]').forEach(el => el.addEventListener('click', () => {
+      el.classList.toggle('stop-scroll');
+      el.classList.contains('stop-scroll') ? lenis.stop() : lenis.start();
+    }));
+
+    // menu links glide to their section (offset keeps titles clear of the fixed menu)
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href.length < 2) return;            // placeholder links like href="#"
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -60, duration: 1.4 });
+    }));
+  }
+
+  // Slideshow — changes photo automatically, pauses while hovered
+  const SLIDE_SECONDS = 5;
+  const show = document.getElementById('slideshow');
+  const slides = [...show.querySelectorAll('.slide')];
+  const dotsBox = document.getElementById('dots');
+  let current = 0, timer;
+  slides.forEach((sl, i) => {
+    const img = new Image();
+    img.onload = () => { sl.style.backgroundImage = `url("${sl.dataset.src}")`; sl.classList.add('has-img'); };
+    img.src = sl.dataset.src;
+    const dot = document.createElement('button');
+    dot.setAttribute('aria-label', 'Show photo ' + (i + 1));
+    dot.addEventListener('click', () => { go(i); restart(); });
+    dotsBox.appendChild(dot);
+  });
+  const dots = [...dotsBox.children];
+  function go(i) {
+    slides[current].classList.remove('active');
+    current = (i + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots.forEach((d, k) => d.classList.toggle('on', k === current));
+  }
+  function restart() { clearInterval(timer); timer = setInterval(() => go(current + 1), SLIDE_SECONDS * 1000); }
+  show.querySelector('.prev').addEventListener('click', () => { go(current - 1); restart(); });
+  show.querySelector('.next').addEventListener('click', () => { go(current + 1); restart(); });
+  show.addEventListener('mouseenter', () => clearInterval(timer));
+  show.addEventListener('mouseleave', restart);
+  let touchX = null;
+  show.addEventListener('touchstart', e => touchX = e.touches[0].clientX, { passive: true });
+  show.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) { go(current + (dx < 0 ? 1 : -1)); restart(); }
+  });
+  go(0); restart();
+
+  // Close mobile menu after tapping a link
+  document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => document.getElementById('nav').classList.remove('open')));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+  }), { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

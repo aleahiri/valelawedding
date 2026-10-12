@@ -25,8 +25,9 @@
     --cream: #f3ece0;
     --gold: #b08d57;
     --gold-soft: #d8c39c;
-    --ink: #2f2a24;
-    --muted: #7a7064;
+    --ink: #7f6448;        /* EDIT: main text color (champagne brown) */
+    --deep: #2f2a24;       /* footer background */
+    --muted: #8c7a66;
     --serif: 'Cormorant Garamond', Georgia, serif;
     --sans: 'Montserrat', system-ui, sans-serif;
   }
@@ -122,7 +123,7 @@
 
   /* Story text (below the slideshow) */
   .story-text { max-width: 640px; margin: 4rem auto 0; text-align: center; }
-  .story-text p { font-family: var(--serif); font-size: 1.25rem; line-height: 1.75; color: #4a4339; margin-bottom: 1.3rem; }
+  .story-text p { font-family: var(--serif); font-size: 1.3rem; line-height: 1.75; color: var(--ink); margin-bottom: 1.3rem; }
   .story-sign { font-style: italic; color: var(--gold) !important; font-size: 1.5rem !important; margin-top: 1.8rem; }
 
   /* Details */
@@ -189,7 +190,7 @@
   details[open] summary::after { content: "−"; }
   details p { color: var(--muted); margin-top: .8rem; }
 
-  footer { text-align: center; padding: 4rem 1rem; background: var(--ink); color: var(--gold-soft); }
+  footer { text-align: center; padding: 4rem 1rem; background: var(--deep); color: var(--gold-soft); }
   footer .mono { font-family: var(--serif); font-size: 2.6rem; font-style: italic; }
   footer small { display: block; margin-top: .6rem; font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: #8d8273; }
 
@@ -532,7 +533,7 @@
   <div class="wrap">
     <div class="title reveal"><h2>Our Story</h2><div class="divider">✦</div></div>
     <!--
-      EDIT: put your photos next to this file named slide-1.jpg, slide-2.jpg, ...
+      EDIT: put your photos next to this file named slide-1.png, slide-2.png, ...
       Add or remove <div class="slide"> lines to change how many there are.
       Change SLIDE_SECONDS in the <script> to speed it up or slow it down.
     -->
@@ -547,7 +548,7 @@
     </div>
     <div class="dots" id="dots"></div>
 
-    
+    <!-- EDIT: your story (add more <p> lines for more paragraphs) -->
     <div class="story-text reveal">
       <p>We spent nearly our whole lives two doors apart, but it was a simple message on social media that finally brought us together. That one message grew into a love full of laughter and adventure. As we prepare to say "I do," we can't wait to celebrate with the people we love most.</p>
       <p class="story-sign">— Alexa &amp; Vincent</p>

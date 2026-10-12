@@ -1,18 +1,9 @@
-<!--
- Date needs to be on the first page, keep the countdown, add in the story, remove the RSVP, Keep the color of the text in Alexa's website, Alexa to send the registry links
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alexa & Vincent · September 2nd, 2027</title>
-<!--
-  CLASSIC ELEGANT — ivory, gold, and serif type.
-  Edit the names, date, and details below. Search for "EDIT" to find the key spots.
-  Single file: no build step. Open with VS Code's Live Server or just double-click.
--->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -69,7 +60,7 @@
     line-height: 1; margin: 1.6rem 0;
   }
   .hero h1 em { font-style: italic; color: var(--gold); padding: 0 .15em; }
-  .hero .date { font-family: var(--serif); font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 600; font-style: italic; line-height: 1.15; margin-top: -.2rem; }
+  .hero .date { font-family: var(--serif); font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 400; font-style: italic; line-height: 1.15; margin-top: -.2rem; }
   .hero .place { font-size: .8rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-top: .4rem; }
 
   .countdown { display: flex; justify-content: center; gap: 2.4rem; margin-top: 3rem; }
@@ -134,8 +125,6 @@
   }
   .card::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(176,141,87,.15); pointer-events: none; }
   .card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; line-height: 1.15; margin-bottom: .8rem; }
-  .card .big-time { font-family: var(--serif); font-weight: 600; font-size: clamp(3rem, 7vw, 3.8rem); line-height: 1; color: var(--ink); margin-bottom: 1rem; }
-  .card .big-time small { font-size: .55em; letter-spacing: .04em; margin-left: .12em; }
   .card .time { font-size: .75rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
   .card p { color: var(--muted); }
   .card a { display: inline-block; margin-top: 1.2rem; font-size: .7rem; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); }
@@ -567,8 +556,8 @@
     <div class="cards">
       <!-- EDIT: start time & venue -->
       <div class="card reveal">
-        <p class="time">Begins At</p>
-        <p class="big-time">5:00<small>PM</small></p>
+        <p class="time">The Ceremony Begins At</p>
+        <h3>5:00 PM</h3>
         <p>Giorgio's Baiting Hollow<br>100 Fox Hill Drive<br>Baiting Hollow, NY 11933</p>
         <a href="https://maps.google.com/?q=Giorgio's+Baiting+Hollow" target="_blank" rel="noopener">View Map</a>
       </div>
@@ -619,7 +608,7 @@
       <div class="shuttle reveal">
         <h4>Holiday Inn Express &amp; Suites<br>Long Island East End</h4>
         <p>1707 Old Country Rd.<br>Riverhead, NY 11901</p>
-        <a href="https://www.ihg.com/holidayinnexpress/hotels/us/en/riverhead/rihed/hoteldetail" target="_blank" rel="noopener">Visit Website</a>
+        <a href="https://www.ihg.com/holidayinnexpress/hotels/us/en/riverhead/rihed/hoteldetail/directions" target="_blank" rel="noopener">Visit Website</a>
       </div>
       <div class="shuttle reveal">
         <h4>Hilton Garden Inn<br>Riverhead</h4>

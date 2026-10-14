@@ -23,7 +23,7 @@
     --sans: 'Montserrat', system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scrollbar-gutter: stable; }
   body { background: var(--ivory); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.7; }
   img { max-width: 100%; display: block; }
   a { color: inherit; }
@@ -192,13 +192,17 @@
   html.intro-on, html.intro-on body { overflow: hidden; }
   #gateIntro {
     position: fixed; inset: 0; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
-    background: radial-gradient(ellipse at center, #fdfaf4 0%, var(--ivory) 55%, #f1e8d9 100%);
-    transition: opacity .9s ease;
   }
-  #gateIntro.fade { opacity: 0; pointer-events: none; }
+  /* ivory backdrop: dissolves while the gates open, revealing the page underneath */
+  #gateIntro::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, #fdfaf4 0%, var(--ivory) 55%, #f1e8d9 100%);
+    transition: opacity 1.8s ease;
+  }
+  #gateIntro.clear::before { opacity: 0; }
+  #gateIntro.open .gate-skip { opacity: 0; pointer-events: none; transition: opacity .4s ease; }
   .gate-stage { position: relative; width: min(84vw, 62vh); aspect-ratio: 1; perspective: 1600px; transition: transform 2.4s cubic-bezier(.5,0,.2,1); }
   #gateIntro.open .gate-stage { transform: scale(1.22); opacity: 0; transition: transform 2.4s cubic-bezier(.5,0,.2,1), opacity 1.4s ease .8s; }
-  #gateIntro.open .gate-names { opacity: 0; transition: opacity .8s ease; }
   .gate-stage svg { position: absolute; overflow: visible; }
   .gate-frame { inset: 0; width: 100%; height: 100%; }
   .ink { fill: none; stroke: var(--ink); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; filter: url(#inky); }
@@ -214,12 +218,24 @@
   .spark { fill: #e3c98f; }
   .gate-names {
     font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 7vw, 4.4rem); line-height: 1.1; color: var(--ink); text-align: center;
+    position: relative; z-index: 2; transform-origin: center; will-change: transform;
     clip-path: inset(0 100% 0 0); filter: blur(3px); opacity: 0;
     transition: clip-path 2s cubic-bezier(.5,0,.2,1), filter 1.6s ease, opacity .6s ease;
   }
   .gate-names em { font-style: italic; color: var(--gold); padding: 0 .15em; }
   .gate-names.in { clip-path: inset(0 -5% 0 0); filter: none; opacity: 1; }
   .gate-skip { position: absolute; right: 1.4rem; bottom: 1.2rem; background: none; border: 0; font-family: var(--sans); font-size: .66rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); cursor: pointer; }
+
+  /* Hero entrance after the gates: the names glide into place as the title,
+     and the rest of the hero fades in around them */
+  html.intro-title .hero h1 { opacity: 0; }
+  .hero .eyebrow, .hero .date, .hero .place, .hero .countdown, nav { transition: opacity 1.3s ease, transform 1.3s cubic-bezier(.2,.7,.2,1); }
+  html.intro-hero .hero .eyebrow, html.intro-hero .hero .date, html.intro-hero .hero .place, html.intro-hero .hero .countdown { opacity: 0; transform: translateY(14px); }
+  html.intro-hero nav { opacity: 0; }
+  .hero .date { transition-delay: .15s; }
+  .hero .place { transition-delay: .3s; }
+  .hero .countdown { transition-delay: .45s; }
+  nav { transition-delay: .6s; }
 
   /* Fade-in */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
@@ -420,7 +436,10 @@
 (function () {
   const intro = document.getElementById('gateIntro');
   if (!intro) return;
-  document.documentElement.classList.add('intro-on');
+  const root = document.documentElement;
+  root.classList.add('intro-on', 'intro-hero', 'intro-title');
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);              // the names land on the title, so start at the top
   const SPEED = 1;            // EDIT: 1 = normal, 0.7 = faster, 1.3 = slower
   const ms = t => t * SPEED;
   // copy the left gate into the right one (it's mirrored with CSS)
@@ -428,7 +447,7 @@
 
   // when each group of lines is drawn: [start, duration] in ms
   const PHASES = { 1: [0, 1500], 2: [700, 1700], 3: [1900, 1300], 4: [2500, 1300], 5: [3100, 2100], 6: [4300, 1600] };
-  const ARC_AT = 5700, NAMES_AT = 6500, OPEN_AT = 8900, FADE_AT = 10500, DONE_AT = 11500;
+  const ARC_AT = 5700, NAMES_AT = 6500, OPEN_AT = 8900;
   const timers = [], anims = [];
   const later = (fn, t) => timers.push(setTimeout(fn, ms(t)));
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -476,23 +495,58 @@
   }
 
   const names = document.getElementById('gateNames');
-  function open() { intro.classList.add('open'); }
-  function fade() { intro.classList.add('fade'); document.documentElement.classList.remove('intro-on'); window.lenis && window.lenis.start(); }
-  function done() { intro.remove(); }
+  const getTitle = () => document.querySelector('.hero h1');   // the page title (loads after this script)
+  const GLIDE = 1800;                 // how long the names take to glide into the title (ms)
 
-  if (reduce) { names.classList.add('in'); later(fade, 1800); later(done, 3200); }
+  // the box around the actual letters (ignores line-height and padding)
+  function textBox(el) { const r = document.createRange(); r.selectNodeContents(el); return r.getBoundingClientRect(); }
+
+  // slide + scale the intro names so they sit exactly on top of the page title
+  function glideNames() {
+    const title = getTitle();
+    if (!title || reduce) return false;
+    const a = textBox(names), b = textBox(title);
+    const fa = parseFloat(getComputedStyle(names).fontSize), fb = parseFloat(getComputedStyle(title).fontSize);
+    const wrapped = b.height / fb > (a.height / fa) * 1.5;       // title on two lines (small phones)
+    if (!b.width || wrapped || b.top < 0 || b.bottom > innerHeight) return false;
+    const dx = (b.left + b.width / 2) - (a.left + a.width / 2);
+    const dy = (b.top + b.height / 2) - (a.top + a.height / 2);
+    names.style.transform = `translate(${dx}px, ${dy}px) scale(${fb / fa})`;
+    return true;
+  }
+
+  let opened = false;
+  function open() {
+    if (opened) return; opened = true;
+    names.style.transition = `transform ${GLIDE}ms cubic-bezier(.65,0,.25,1), clip-path .6s ease, filter .5s ease, opacity 1.2s ease`;
+    names.classList.add('in');
+    intro.classList.add('open');                                   // doors swing, gates fade away
+    setTimeout(() => intro.classList.add('clear'), ms(500));       // ivory backdrop dissolves
+    setTimeout(() => {
+      if (!glideNames()) {                                         // fallback: soft cross-fade
+        names.style.opacity = 0;
+        if (getTitle()) getTitle().style.transition = 'opacity 1.2s ease';
+        root.classList.remove('intro-title');
+      }
+    }, ms(600));
+    setTimeout(() => root.classList.remove('intro-hero'), ms(1300));   // date, venue, countdown, menu ease in
+    setTimeout(() => {                                             // names have landed: hand over to the real title
+      root.classList.remove('intro-title', 'intro-on');
+      intro.remove();
+      window.lenis && window.lenis.start();
+    }, ms(600) + GLIDE + 80);
+  }
+
+  if (reduce) { names.classList.add('in'); later(open, 1800); }
   else {
     later(sweep, ARC_AT);
     later(() => names.classList.add('in'), NAMES_AT);
     later(open, OPEN_AT);
-    later(fade, FADE_AT);
-    later(done, DONE_AT);
   }
 
   document.getElementById('gateSkip').addEventListener('click', () => {
     timers.forEach(clearTimeout); anims.forEach(a => a.finish());
-    names.classList.add('in'); open();
-    setTimeout(fade, 1200); setTimeout(done, 2200);
+    open();
   });
 })();
 </script>

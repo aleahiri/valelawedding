@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Save the Date · Alexa & Vincent · September 2nd, 2027</title>
 <meta name="robots" content="noindex">   <!-- keeps this page out of Google -->
+<!-- Link preview: the picture and text shown when the link is texted or emailed.
+     EDIT: if your site isn't at www.thevalelawedding.com, change the 2 addresses below. -->
+<meta name="description" content="Alexa & Vincent · Thursday, September 2nd, 2027 · Formal invitation to follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Save the Date · Alexa & Vincent">
+<meta property="og:description" content="Thursday, September 2nd, 2027 · Formal invitation to follow">
+<meta property="og:url" content="https://www.thevalelawedding.com/save-the-date/">
+<meta property="og:image" content="https://www.thevalelawedding.com/share-save-the-date.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Save the Date · Alexa & Vincent · Thursday, September 2nd, 2027">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../icon.png">
+<link rel="apple-touch-icon" href="../icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -632,6 +646,33 @@
 
   // EDIT: calendar event details (-04:00 = New York summer time)
   const EVENT = {
+    title: "Alexa & Vincent's Wedding",
+    start: '2027-09-02T17:00:00-04:00',
+    end:   '2027-09-02T23:00:00-04:00',   // EDIT: end time shown in guests' calendars
+    place: "Giorgio's Baiting Hollow, 100 Fox Hill Drive, Baiting Hollow, NY 11933",
+    details: 'Formal invitation to follow.'
+  };
+  const utc = t => new Date(t).toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';   // e.g. 20270902T210000Z
+  document.getElementById('calGoogle').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=' + encodeURIComponent(EVENT.title) + '&dates=' + utc(EVENT.start) + '/' + utc(EVENT.end)
+    + '&ctz=America/New_York&location=' + encodeURIComponent(EVENT.place) + '&details=' + encodeURIComponent(EVENT.details);
+  // Apple Calendar / Outlook: downloads a calendar file
+  document.getElementById('calIcs').addEventListener('click', () => {
+    const esc = t => t.replace(/([,;\\])/g, '\\$1');
+    const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Alexa & Vincent//Save the Date//EN', 'BEGIN:VEVENT',
+      'UID:alexa-vincent-20270902@wedding', 'DTSTAMP:' + utc(Date.now()),
+      'DTSTART:' + utc(EVENT.start), 'DTEND:' + utc(EVENT.end),
+      'SUMMARY:' + esc(EVENT.title), 'LOCATION:' + esc(EVENT.place), 'DESCRIPTION:' + esc(EVENT.details),
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    a.download = 'alexa-vincent-wedding.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+</script>
+</body>
+</html>
+
     title: "Alexa & Vincent's Wedding",
     start: '2027-09-02T17:00:00-04:00',
     end:   '2027-09-02T23:00:00-04:00',   // EDIT: end time shown in guests' calendars

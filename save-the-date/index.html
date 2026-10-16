@@ -116,7 +116,7 @@
   /* ---------- Opening: sealed envelope ---------- */
   html.intro-on, html.intro-on body { overflow: hidden; }
   #envIntro {
-    position: fixed; inset: 0; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem;
+    position: fixed; top: 0; left: 0; right: 0; height: 100vh; height: 100lvh; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem;
   }
   /* linen-textured backdrop with a faint gold botanical pattern */
   #envIntro::before {
@@ -132,7 +132,7 @@
   /* flower arrangements in the corners of the screen */
   .bg-florals { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
   .bg-florals > svg { position: absolute; overflow: visible; }
-  .bg-rose { position: absolute; display: block; width: min(40vw, 440px); aspect-ratio: 1; filter: drop-shadow(0 6px 8px rgba(90,65,35,.18)); }
+  .bg-rose { position: absolute; display: block; width: min(40vw, 440px); aspect-ratio: 1; }
   .bg-rose.tl { left: max(-50px, -4vw); top: max(-50px, -4vw); }
   .bg-rose.br { right: max(-50px, -4vw); bottom: max(-50px, -4vw); transform: rotate(180deg); }
   .bg-dried { width: min(50vw, 560px); aspect-ratio: 2; filter: drop-shadow(0 3px 4px rgba(90,65,35,.16)); }
@@ -161,7 +161,7 @@
       linear-gradient(165deg, #fffdf8, var(--ivory) 55%, #f6efe2);
     border: 1px solid #d3b886; border-radius: 2px; text-align: center;
     box-shadow: inset 0 0 0 1px rgba(255,255,255,.7), 0 1px 2px rgba(90,65,35,.12);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(.85 * var(--u)); padding-bottom: calc(12 * var(--u));   /* EDIT: 12 = how far the text sits above center */
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(.85 * var(--u)); padding-bottom: calc(3 * var(--u));   /* EDIT: 3 = how far the text sits above center */
     transform-origin: center;
     transition: transform 1.1s cubic-bezier(.22,.8,.24,1) .75s, background .9s ease, border-color .9s ease, box-shadow .9s ease;
     overflow: hidden;
@@ -169,14 +169,14 @@
   .env-card > * { position: relative; transition: opacity .7s ease; }
   .env-card p { line-height: 1.25; }
   .card-rose { position: absolute !important; width: calc(30 * var(--u)); aspect-ratio: 1; pointer-events: none; z-index: 3;
-    opacity: 0; transition: opacity .9s ease .5s !important; filter: drop-shadow(0 3px 4px rgba(90,65,35,.22)); }
+    opacity: 0; transition: opacity .9s ease .5s !important; }
   .card-rose.tl { left: calc(-7 * var(--u)); top: calc(-7 * var(--u)); }
   .card-rose.br { right: calc(-7 * var(--u)); bottom: calc(-7 * var(--u)); transform: rotate(180deg); }
   .envelope.shown .card-rose { opacity: 1; }
-  .rose-corner > svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .rose-corner > svg, .rose-corner > img { width: 100%; height: 100%; display: block; overflow: visible; }
   .seal-roses { position: absolute; z-index: 5; left: 50%; top: 60%; width: 38%; aspect-ratio: 2; pointer-events: none;
-    transform: translate(-56%, -60%); transition: opacity .6s ease; filter: drop-shadow(0 2px 3px rgba(90,65,35,.2)); }
-  .seal-roses > svg { width: 100%; height: 100%; overflow: visible; }
+    transform: translate(-56%, -60%); transition: opacity .6s ease; }
+  .seal-roses > svg, .seal-roses > img { width: 100%; height: 100%; display: block; overflow: visible; }
   .envelope.open .seal-roses { opacity: 0; }
   /* double gold frame */
   .card-frame { position: absolute !important; inset: calc(3.4 * var(--u)); border: 1px solid rgba(176,141,87,.55); pointer-events: none; }
@@ -190,20 +190,23 @@
   /* monogram crest with laurel */
   .crest { width: calc(9 * var(--u) * var(--fit)); height: calc(4.8 * var(--u) * var(--fit)); margin: calc(-.2 * var(--u)) 0 0; color: var(--gold); opacity: .5; }   /* EDIT: .5 = crest see-through */
   .crest text { font-family: var(--serif); font-style: italic; }
-  .env-eyebrow { font-family: var(--serif); font-size: calc(max(calc(4.6 * var(--u)), 15px) * var(--fit)); line-height: 1.1; letter-spacing: .32em; text-indent: .32em;
-    text-transform: uppercase; color: var(--gold); font-weight: 500; }   /* "Save the Date": big and bold at the top */
+  .env-eyebrow { font-family: var(--serif); font-size: calc(max(calc(5.8 * var(--u)), 17px) * var(--fit)); line-height: 1.05; letter-spacing: .26em; text-indent: .26em;
+    text-transform: uppercase; color: #a37f46; font-weight: 600; margin-bottom: calc(1.6 * var(--u));
+    filter: drop-shadow(0 1px 0 rgba(255,255,255,.9)) drop-shadow(0 2px 5px rgba(150,112,55,.28)); }   /* "Save the Date": big and bold at the top */
   .env-names {
-    font-family: var(--serif); font-weight: 300; font-size: calc(7.4 * var(--u) * var(--fit)); line-height: 1.1; color: var(--ink);
+    font-family: var(--serif); font-weight: 300; font-size: calc(6.8 * var(--u) * var(--fit)); line-height: 1.05; color: var(--ink);
     z-index: 2; transform-origin: center; will-change: transform; margin: calc(.3 * var(--u)) 0;
   }
   .env-names em { font-style: italic; color: var(--gold); padding: 0 .15em; }
   .card-rule { display: flex; align-items: center; gap: calc(1.6 * var(--u)); color: var(--gold); font-size: calc(1.8 * var(--u)); }
   .card-rule::before, .card-rule::after { content: ""; width: calc(9 * var(--u)); height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
   .card-rule::after { transform: scaleX(-1); }
-  .env-date { font-family: var(--serif); font-style: italic; font-size: calc(3.7 * var(--u) * var(--fit)); color: var(--ink); line-height: 1.2; }
-  .env-date sup { font-size: .55em; vertical-align: .7em; margin-left: .05em; color: var(--gold); }
+  .env-date { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: calc(4.9 * var(--u) * var(--fit)); color: #6e5538; line-height: 1.15;
+    filter: drop-shadow(0 1px 0 rgba(255,255,255,.9)) drop-shadow(0 2px 5px rgba(150,112,55,.25)); }
+  .env-date sup { font-size: .55em; vertical-align: .7em; margin-left: .05em; color: inherit; }
   .env-venue { max-width: calc(76 * var(--u)); margin-top: calc(.4 * var(--u)); font-size: calc(max(calc(1.65 * var(--u)), 7.5px) * var(--fit)); letter-spacing: .3em; text-indent: .3em; text-transform: uppercase; color: var(--muted); }
   .env-venue i, .hero .place i { font-style: normal; }
+  .env-note { font-family: var(--serif); font-style: italic; font-size: calc(max(calc(2.5 * var(--u)), 10px) * var(--fit)); color: var(--muted); margin-top: calc(-.2 * var(--u)); }
   /* add-to-calendar links on the card */
   .card-cal { position: absolute !important; left: calc(16 * var(--u)); right: calc(16 * var(--u)); bottom: calc(5.6 * var(--u)); z-index: 4 !important; font-size: calc(max(calc(1.5 * var(--u)), 8px) * var(--fit));
     letter-spacing: .24em; text-transform: uppercase; color: var(--muted); display: flex; flex-wrap: wrap;
@@ -300,11 +303,12 @@
     -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
     animation: textShine 10s ease-in-out 1s infinite;   /* EDIT: 10s = time between shines */
   }
-  #envIntro.done .env-names, #envIntro.done .env-date { --hi: #b39a75; }                      /* EDIT: shine color (closer to the text = subtler) */
-  #envIntro.done .env-names em, #envIntro.done .env-eyebrow { --c: var(--gold); --hi: #d9c095; }
+  #envIntro.done .env-names { --hi: #b39a75; }
+  #envIntro.done .env-date { --c: #6e5538; --hi: #a88a5e; }                      /* EDIT: shine color (closer to the text = subtler) */
+  #envIntro.done .env-names em { --c: var(--gold); --hi: #d9c095; }
+  #envIntro.done .env-eyebrow { --c: #a37f46; --hi: #d9c095; }
   #envIntro.done .env-eyebrow { animation-delay: .8s; }
   #envIntro.done .env-date { animation-delay: 1.25s; }
-  #envIntro.done .env-date sup { -webkit-text-fill-color: var(--gold); }
   /* then everything but the names melts away */
   #envIntro.leaving .env-back, #envIntro.leaving .env-pocket, #envIntro.leaving .env-flap,
   #envIntro.leaving .env-card > *:not(.env-names) { opacity: 0; }
@@ -492,11 +496,11 @@
       <svg class="corner bl" viewBox="0 0 60 60" aria-hidden="true"><use href="#flourish"/></svg>
       <svg class="corner br" viewBox="0 0 60 60" aria-hidden="true"><use href="#flourish"/></svg>
       <p class="env-eyebrow">Save the Date</p>
-      <svg class="crest" viewBox="0 0 120 64" aria-hidden="true"><use href="#crest"/></svg>
       <p class="env-names" id="envNames">Alexa<em>&amp;</em>Vincent</p>
       <p class="card-rule">✦</p>
       <p class="env-date">Thursday, September 2<sup>nd</sup>, 2027</p>
       <p class="env-venue">Baiting Hollow, New York</p>
+      <p class="env-note">Formal invitation to follow</p>   <!-- EDIT: the line under the venue -->
       <p class="card-cal"><span>Add to calendar</span>
         <a id="calGoogle" target="_blank" rel="noopener">Google</a><i>·</i><a id="calIcs" href="#" role="button">Apple / Outlook</a>
       </p>
@@ -687,8 +691,34 @@
       leaf(60, 34, 30, 7, -70) + leaf(60, 34, 28, 7, 250) + breath(56, 32, 22, 18) +
       bloom(48, 32, 13, 'w', 8, -6) + bloom(70, 36, 10, 'c', 30, 10) + bud(84, 26, 4.5, 60, 'w') +
     '</svg>';
-  document.querySelectorAll('.rose-corner').forEach(function (el) { el.innerHTML = corner; });
-  var sr = document.getElementById('sealRoses'); if (sr) sr.innerHTML = cluster;
+  // Draw each arrangement once into a picture (with its shadow baked in), so phones don't
+  // have to redraw the paper-texture effects on every frame while things move.
+  var defs = document.querySelector('svg[aria-hidden] defs').innerHTML;
+  function toPicture(svg, w, h, shadow, done) {
+    var full = svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '" ').replace(/(<svg[^>]*>)/, '$1<defs>' + defs + '</defs>');
+    var img = new Image();
+    img.onload = function () {
+      try {
+        var pad = shadow * 3, c = document.createElement('canvas'); c.width = w + pad * 2; c.height = h + pad * 2;
+        var x = c.getContext('2d'); x.shadowColor = 'rgba(90,65,35,.22)'; x.shadowBlur = shadow; x.shadowOffsetY = shadow * .5;
+        x.drawImage(img, pad, pad, w, h);
+        done(c.toDataURL('image/png'), pad / w);
+      } catch (e) { done(null); }
+    };
+    img.onerror = function () { done(null); };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(full);
+  }
+  function place(els, svg, w, h, shadow) {
+    els.forEach(function (el) { el.innerHTML = svg; });          // shows right away…
+    toPicture(svg, w, h, shadow, function (url, p) {             // …then swaps in the lighter picture
+      if (!url) return;
+      els.forEach(function (el) {
+        el.innerHTML = '<img alt="" src="' + url + '" style="margin:' + (-p * 100) + '%;width:' + (100 + p * 200) + '%;height:auto;max-width:none">';
+      });
+    });
+  }
+  place(document.querySelectorAll('.rose-corner'), corner, 900, 900, 14);
+  var sr = document.getElementById('sealRoses'); if (sr) place([sr], cluster, 600, 300, 6);
 })();
 </script>
 <script>
@@ -794,6 +824,7 @@
     })(t0);
   }
 
+  let opened = false;
   // bring the card out in front of the envelope, bigger, in the middle of the screen
   const card = document.getElementById('envCard');
 
@@ -804,7 +835,7 @@
     card.classList.toggle('narrow', w < 420);
     let fit = 1; card.style.setProperty('--fit', fit);
     const frame = card.querySelector('.card-frame').getBoundingClientRect();
-    const parts = [...card.querySelectorAll('.crest, .env-eyebrow, .env-names, .card-rule, .env-date, .env-venue, .card-cal')];
+    const parts = [...card.querySelectorAll('.crest, .env-eyebrow, .env-names, .card-rule, .env-date, .env-venue, .env-note, .card-cal')];
     for (let i = 0; i < 12; i++) {
       const k = card.getBoundingClientRect().width / w;               // undo the card's own scaling
       const pad = 6 * k;
@@ -817,31 +848,44 @@
     }
   }
   fitCard();
-  if (document.fonts) document.fonts.ready.then(fitCard);
-  addEventListener('resize', fitCard);
+  // re-fit once the real fonts arrive (but never mid-animation)
+  if (document.fonts) document.fonts.ready.then(function refit() {
+    if (opened && !intro.classList.contains('done')) return setTimeout(refit, 400);
+    fitCard();
+  });
   let cardScale = 1;
   function present() {
     const er = envelope.getBoundingClientRect();
     const cw = card.offsetWidth, ch = card.offsetHeight;
     const finale = intro.querySelector('.finale'), fh = finale.offsetHeight, gap = 34;
-    cardScale = Math.min(innerWidth * .86 / cw, 820 / cw, (innerHeight - fh - gap - 70) / ch);   // EDIT: 820 = largest card width (px)
-    const h = ch * cardScale, top = Math.max(24, (innerHeight - (h + gap + fh)) / 2);  // card + links centered as a group
+    const H = Math.min(intro.clientHeight, innerHeight);
+    cardScale = Math.min(innerWidth * .86 / cw, 820 / cw, (H - fh - gap - 70) / ch);   // EDIT: 820 = largest card width (px)
+    const h = ch * cardScale, top = Math.max(24, (H - (h + gap + fh)) / 2);  // card + links centered as a group
     const cx = er.left + card.offsetLeft + cw / 2, cy = er.top + card.offsetTop + ch / 2;
     envelope.classList.add('shown');
+    card.style.willChange = 'transform';                           // smooth while it moves…
     card.style.transform = `translate(${innerWidth / 2 - cx}px, ${top + h / 2 - cy}px) scale(${cardScale})`;
+    clearTimeout(present.t); present.t = setTimeout(() => card.style.willChange = 'auto', 1300);   // …then crisp once it lands
     finale.style.top = (top + h + gap) + 'px';
   }
   // keep the card centered if the window is resized or the phone is turned
+  // (only when the width changes, e.g. turning the phone; a phone's address bar showing/hiding is ignored)
+  let lastW = innerWidth, rt;
   addEventListener('resize', () => {
-    if (!envelope.classList.contains('shown')) return;
-    card.style.transition = 'none'; card.style.transform = ''; present();
-    requestAnimationFrame(() => card.style.transition = '');
+    clearTimeout(rt);
+    rt = setTimeout(() => {
+      if (innerWidth === lastW) return;
+      lastW = innerWidth; fitCard();
+      if (!envelope.classList.contains('shown')) return;
+      card.style.transition = 'none'; card.style.transform = ''; present();
+      requestAnimationFrame(() => requestAnimationFrame(() => card.style.transition = ''));
+    }, 250);
   });
 
-  let opened = false;
   function open(fast) {
     if (opened) return; opened = true;
     clearInterval(nudge); envelope.classList.remove('nudge');
+    intro.style.height = intro.clientHeight + 'px';                 // lock the layout so nothing re-centers mid-animation
     intro.classList.add('opening');
     envelope.classList.add('open');                               // seal fades, flap lifts, card rises
     setTimeout(petals, fast ? 400 : 650);                         // petals burst out as the flap opens

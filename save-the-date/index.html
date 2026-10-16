@@ -21,7 +21,7 @@
 <link rel="apple-touch-icon" href="../icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --ivory: #fbf8f2;
@@ -190,7 +190,7 @@
   /* monogram crest with laurel */
   .crest { width: calc(9 * var(--u) * var(--fit)); height: calc(4.8 * var(--u) * var(--fit)); margin: calc(-.2 * var(--u)) 0 0; color: var(--gold); opacity: .5; }   /* EDIT: .5 = crest see-through */
   .crest text { font-family: var(--serif); font-style: italic; }
-  .env-eyebrow { font-family: var(--serif); font-size: calc(max(calc(4 * var(--u)), 13px) * var(--fit)); line-height: 1.1; letter-spacing: .32em; text-indent: .32em;
+  .env-eyebrow { font-family: var(--serif); font-size: calc(max(calc(4.6 * var(--u)), 15px) * var(--fit)); line-height: 1.1; letter-spacing: .32em; text-indent: .32em;
     text-transform: uppercase; color: var(--gold); font-weight: 500; }   /* "Save the Date": big and bold at the top */
   .env-names {
     font-family: var(--serif); font-weight: 300; font-size: calc(7.4 * var(--u) * var(--fit)); line-height: 1.1; color: var(--ink);
@@ -279,7 +279,7 @@
   #envIntro.done .finale { opacity: 1; transform: none; pointer-events: auto; }
   /* the website button: filled gold so it stands out */
   .finale .site-btn {
-    padding: 1.15rem 2.6rem; font-size: .8rem; font-weight: 500; letter-spacing: .26em;
+    padding: 1.15rem 2.6rem; font-size: .82rem; font-weight: 700; letter-spacing: .24em;
     color: #fffaf0; border: 1px solid #a07d43;
     background: linear-gradient(135deg, #c9a466, #b08d57 55%, #9c7a45);
     box-shadow: 0 10px 24px -10px rgba(110,80,35,.55), inset 0 1px 0 rgba(255,255,255,.35);
@@ -291,7 +291,7 @@
   .finale .site-btn:hover span { transform: translateX(4px); }
   @keyframes btnGlow { 0%, 100% { box-shadow: 0 10px 24px -10px rgba(110,80,35,.55), inset 0 1px 0 rgba(255,255,255,.35), 0 0 0 0 rgba(176,141,87,.35); }
                        50% { box-shadow: 0 10px 24px -10px rgba(110,80,35,.55), inset 0 1px 0 rgba(255,255,255,.35), 0 0 0 9px rgba(176,141,87,0); } }
-  @media (max-width: 760px) { .finale .site-btn { padding: 1.05rem 1.7rem; letter-spacing: .2em; font-size: .74rem; } }
+  @media (max-width: 760px) { .finale .site-btn { padding: 1.05rem 1.6rem; letter-spacing: .18em; font-size: .76rem; } }
   .finale .cal span { text-shadow: 0 0 8px rgba(251,248,242,.95); }
   /* gentle gold shine across the card lettering every 10 seconds */
   #envIntro.done .env-names, #envIntro.done .env-names em, #envIntro.done .env-date, #envIntro.done .env-eyebrow {
